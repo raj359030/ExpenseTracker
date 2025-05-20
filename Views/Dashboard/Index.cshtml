@@ -1,0 +1,65 @@
+@model DashboardViewModel
+
+<div class="container-fluid mt-4">
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Total Income</div>
+                <div class="card-body">
+                    <h5 class="card-title">@Model.TotalIncome.ToString("C")</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-danger mb-3">
+                <div class="card-header">Total Expense</div>
+                <div class="card-body">
+                    <h5 class="card-title">@Model.TotalExpense.ToString("C")</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">Net Balance</div>
+                <div class="card-body">
+                    <h5 class="card-title">@Model.NetBalance.ToString("C")</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-header">
+            <h4>Transaction History</h4>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Type</th>
+                        <th>Category</th>
+                        <th>Bank</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var transaction in Model.Transactions)
+                    {
+                        <tr>
+                            <td>@transaction.Date.ToString("dd MMM yyyy")</td>
+                            <td>@transaction.Description</td>
+                            <td class="@(transaction.Type == "Credit" ? "text-success" : "text-danger")">
+                                @transaction.Amount.ToString("C")
+                            </td>
+                            <td>@transaction.Type</td>
+                            <td>@transaction.Category</td>
+                            <td>@transaction.Bank</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
